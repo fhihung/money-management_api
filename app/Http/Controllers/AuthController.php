@@ -14,14 +14,14 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 
 class AuthController extends Controller
 {
-    public function register(Request $request)
+    public function register(Request $request): \Illuminate\Http\JsonResponse
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
             'phone_number' => 'required|string',
-            'address' => 'string|nullable',
+            'address' => 'nullable|string',
             'role' => 'required|integer'
         ]);
 
