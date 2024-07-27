@@ -20,6 +20,7 @@ class TransactionsTableSeeder extends Seeder
                 'account_id' => 3,
                 'created_at' => now(),
                 'updated_at' => now(),
+                'user_id' => 1,
             ],
             [
                 'title' => 'Electricity Bill',
@@ -30,6 +31,7 @@ class TransactionsTableSeeder extends Seeder
                 'account_id' => 4,
                 'created_at' => now(),
                 'updated_at' => now(),
+                'user_id' => 2,
             ],
         ]);
     }
