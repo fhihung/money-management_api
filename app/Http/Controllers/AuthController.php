@@ -49,10 +49,10 @@ class AuthController extends Controller
 
         try {
             if (!$token = JWTAuth::attempt($credentials)) {
-                return response()->json(['error' => 'invalid_credentials'], 400);
+                return response()->json(['error' => 'Sai tài khoản và mật khẩu'], 400);
             }
         } catch (JWTException $e) {
-            return response()->json(['error' => 'could_not_create_token'], 500);
+            return response()->json(['error' => 'Tạo token không thành công'], 500);
         }
 
         return response()->json(compact('token'));
@@ -61,7 +61,7 @@ class AuthController extends Controller
     public function getAuthenticatedUser()
     {
         try {
-            if (!$user = auth()->user()) {
+            if (!$user = JWTAuth::parseToken()->authenticate()) {
                 return response()->json(['user_not_found'], 404);
             }
         } catch (TokenExpiredException $e) {
