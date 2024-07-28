@@ -12,28 +12,36 @@ class AccountController extends Controller
     {
         $accounts = Account::all();
     }
+
     public function show($id)
     {
         return Account::find($id);
     }
+
     public function store(Request $request)
     {
         $account = Account::create($request->all());
         return response()->json($account, 201);
     }
+
     public function update(Request $request, $id)
     {
         $account = Account::findOrFail($id);
         $account->update($request->all());
         return response()->json($account, 200);
     }
+
     public function destroy($id)
     {
         Account::findOrFail($id)->delete();
         return response()->json(null, 204);
     }
-    public function getAccountByUserId($user_id)
+
+    public function getAccountByUserId(Request $request)
     {
+        // Lấy user_id từ query parameters
+        $user_id = $request->query('user_id');
+
         // Truy vấn cơ sở dữ liệu để lấy tài khoản theo user_id
         $accounts = Account::where('user_id', $user_id)->get();
 
