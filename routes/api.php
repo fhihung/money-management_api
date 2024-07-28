@@ -47,6 +47,8 @@ Route::get('accounts_by_user_id', [AccountController::class, 'getAccountByUserId
 // Route lấy transactions từ database
 Route::get('transactions_by_user_id', [TransactionController::class, 'getTransactionByUserId']);
 Route::get('transactions/{user_id}/{account_id}', [TransactionController::class, 'getTransactionByAccountId']);
+Route::get('transactions_by_date', [TransactionController::class, 'getTransactionsByDate']);
+//Route::get('transactions_by_date_range', [TransactionController::class, 'getTransactionsByDateRange']);
 
 //Route tạo transaction
 Route::post('create_transaction', [TransactionController::class, 'store']);

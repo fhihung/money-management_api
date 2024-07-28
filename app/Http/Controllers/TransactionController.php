@@ -70,5 +70,42 @@ class TransactionController extends Controller
         return response()->json($transactions, 200);
     }
 
+    public function getTransactionsByDate(Request $request)
+    {
+        // Validate the request data
+        $request->validate([
+            'start_date' => 'required_without:end_date|date',
+            'end_date' => 'required_without:start_date|date',
+            'user_id' => 'required|integer'
+        ]);
 
+        // Retrieve data from the request
+        $start_date = $request->query('start_date');
+        $end_date = $request->query('end_date');
+        $user_id = $request->query('user_id');
+
+        // Query the database to get transactions
+        if ($start_date && $end_date) {
+            // Case for date range
+            $transactions = Transaction::whereBetween('transaction_date', [$start_date, $end_date])
+                ->where('user_id', $user_id)->with(['account', 'category'])
+                ->get();
+        } elseif ($start_date) {
+            // Case for single day
+            $transactions = Transaction::whereDate('transaction_date', $start_date)
+                ->where('user_id', $user_id)->with(['account', 'category'])
+                ->get();
+        } elseif ($end_date) {
+            // Case for single day
+            $transactions = Transaction::whereDate('transaction_date', $end_date)
+                ->where('user_id', $user_id)->with(['account', 'category'])
+                ->get();
+        } else {
+            // Handle case where no date is provided (optional)
+            return response()->json(['error' => 'Date is required'], 400);
+        }
+
+        // Return the list of transactions as JSON
+        return response()->json($transactions, 200);
+    }
 }
