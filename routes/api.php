@@ -51,6 +51,8 @@ Route::get('transactions_by_date', [TransactionController::class, 'getTransactio
 Route::get('transactions_for_current_week', [TransactionController::class, 'getTransactionsForCurrentWeek']);
 Route::get('transactions_for_current_month', [TransactionController::class, 'getTransactionsForCurrentMonth']);
 //Route::get('transactions_by_date_range', [TransactionController::class, 'getTransactionsByDateRange']);
+Route::get('transactions_for_current_week', [TransactionController::class, 'getTransactionsForCurrentWeek']);
+Route::get('transactions_for_current_month', [TransactionController::class, 'getTransactionsForCurrentMonth']);
 
 //Route tạo transaction
 Route::post('create_transaction', [TransactionController::class, 'store']);
