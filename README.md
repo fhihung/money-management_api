@@ -46,10 +46,11 @@ becoming a sponsor, please visit the [Laravel Partners program](https://partners
 1. Clone the repository
 2. Run `composer install`
 3. Run `cp .env.example .env`
-4. Run `php artisan jwt:secret`
-5. Run `php artisan migrate`
-6. Run `php artisan db:seed`
-7. Run `php artisan serve`
+4. Run `php artisan key:generate`
+5. Run `php artisan jwt:secret`
+6. Run `php artisan migrate`
+7. Run `php artisan db:seed`
+8. Run `php artisan serve`
 
 ## Contributing
 
