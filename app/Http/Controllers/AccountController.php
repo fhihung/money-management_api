@@ -48,4 +48,15 @@ class AccountController extends Controller
         // Trả về danh sách tài khoản dưới dạng JSON
         return response()->json($accounts, 200);
     }
+    public function getTotalBalanceByUserId(Request $request)
+    {
+        // Lấy user_id từ query parameters
+        $user_id = $request->query('user_id');
+
+        // Truy vấn cơ sở dữ liệu để lấy tài khoản theo user_id và tính tổng số dư
+        $totalBalance = Account::where('user_id', $user_id)->sum('balance');
+
+        // Trả về tổng số dư dưới dạng JSON
+        return response()->json(['total_balance' => $totalBalance], 200);
+    }
 }

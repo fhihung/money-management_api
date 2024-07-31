@@ -42,10 +42,11 @@ Route::post('create_category', [CategoryController::class, 'store']);
 
 // Route lấy accounts từ database
 Route::get('accounts_by_user_id', [AccountController::class, 'getAccountByUserId']);
+Route::get('total_balance', [AccountController::class, 'getTotalBalanceByUserId']);
 
 
 // Route lấy transactions từ database
-Route::get('transactions_by_user_id', [TransactionController::class, 'getTransactionByUserId']);
+//Route::get('transactions_by_user_id', [TransactionController::class, 'getTransactionByUserId']);
 Route::get('transactions/{user_id}/{account_id}', [TransactionController::class, 'getTransactionByAccountId']);
 Route::get('transactions_by_date', [TransactionController::class, 'getTransactionsByDate']);
 Route::get('transactions_for_current_week', [TransactionController::class, 'getTransactionsForCurrentWeek']);
@@ -53,6 +54,11 @@ Route::get('transactions_for_current_month', [TransactionController::class, 'get
 //Route::get('transactions_by_date_range', [TransactionController::class, 'getTransactionsByDateRange']);
 Route::get('transactions_for_current_week', [TransactionController::class, 'getTransactionsForCurrentWeek']);
 Route::get('transactions_for_current_month', [TransactionController::class, 'getTransactionsForCurrentMonth']);
+Route::get('transactions_by_user_id', [TransactionController::class, 'getTransactionsByUserId']);
+Route::get('total_income_and_expense_for_current_month', [TransactionController::class, 'getTotalIncomeAndExpenseForCurrentMonth']);
+Route::get('income_by_week_of_current_month', [TransactionController::class, 'getIncomeByWeekOfCurrentMonth']);
+Route::get('expense_by_week_of_current_month', [TransactionController::class, 'getExpenseByWeekOfCurrentMonth']);
+
 
 //Route tạo transaction
 Route::post('create_transaction', [TransactionController::class, 'store']);
