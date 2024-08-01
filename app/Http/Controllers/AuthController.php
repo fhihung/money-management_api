@@ -16,21 +16,25 @@ class AuthController extends Controller
 {
     public function register(Request $request): \Illuminate\Http\JsonResponse
     {
-        // role 0, user
-
+        // Validate incoming request
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
-            'phone_number' => 'required|string',
+            'phone_number' => 'nullable|string',
             'address' => 'nullable|string',
             'role' => 'required|integer'
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors()->toJson(), 400);
+            $errorMessages = $validator->errors()->all();
+            $firstErrorMessage = $errorMessages[0];
+
+            // Return a JSON response with the first error message
+            return response()->json(['error' => $firstErrorMessage], 400);
         }
 
+        // Create the user
         $user = User::create([
             'name' => $request->get('name'),
             'email' => $request->get('email'),
@@ -40,10 +44,20 @@ class AuthController extends Controller
             'role' => $request->get('role')
         ]);
 
+        // Create a wallet account for the user
+        $account = $user->accounts()->create([
+            'name' => 'wallet',
+            'account_number' => '_', // Generate this as needed
+            'balance' => 0, // or any initial balance you want
+            'alias' => 'wallet'
+        ]);
+
+        // Generate a JWT token for the user
         $token = JWTAuth::fromUser($user);
 
-        return response()->json(compact('user', 'token'), 201);
+        return response()->json(compact('user', 'token', 'account'), 201);
     }
+
 
     public function login(Request $request)
     {

@@ -43,6 +43,7 @@ Route::post('create_category', [CategoryController::class, 'store']);
 // Route lấy accounts từ database
 Route::get('accounts_by_user_id', [AccountController::class, 'getAccountByUserId']);
 Route::get('total_balance', [AccountController::class, 'getTotalBalanceByUserId']);
+Route::post('create_account', [AccountController::class, 'store']);
 
 
 // Route lấy transactions từ database

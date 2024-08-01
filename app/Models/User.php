@@ -27,6 +27,10 @@ class User extends Authenticatable implements JWTSubject
         'phone_number',
     ];
 
+    public function accounts(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Account::class);
+    }
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -66,4 +70,5 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
 }
